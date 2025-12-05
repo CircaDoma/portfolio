@@ -18,76 +18,82 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 2rem 1rem;
+  padding: 0;
   text-align: center;
+  overflow-x: hidden;
 }
 
-/* Headings + buttons = Inter */
+/* FULL SCREEN LAYOUT — no more 720px cage */
+main {
+  width: 100vw;
+  max-width: none;
+  padding: 0 2rem;
+  box-sizing: border-box;
+}
+
 h1, button, .btn {
   font-family: 'Inter', system-ui, sans-serif;
 }
 
-main {
-  max-width: 720px;
-  width: 100%;
-}
-
 h1 {
-  font-size: 3.5rem;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-  background: linear-gradient(135deg, var(--accent), #3b82f6);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  font-size: clamp(9rem, 18vw, 240pt);
+  font-weight: 1000;
+  line-height: 0.78;
+  letter-spacing: -0.05em;
+  margin: 0 0 1.5rem 0;
+  padding: 0;
+  color: var(--accent);
+
+  user-select: none;           /* works everywhere */
+  -webkit-user-select: none;   /* iOS Safari */
+  -moz-user-select: none;      /* Firefox */
+  -ms-user-select: none;       /* old Edge */
+
 }
 
+/* Rest of content stays readable */
 p {
-  font-size: 1.25rem;
-  color: var(--text);
-  margin-bottom: 2.5rem;
+  font-size: clamp(1.1rem, 2.5vw, 1.40rem);
+  max-width: 100%;
+  font-weight: lighter;
+  margin: 0 0 3rem;
+  text-align: left;
+  line-height: 1.25em;
 }
 
 .buttons {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 1.2rem;
   justify-content: center;
-  margin-bottom: 3rem;
+  margin-bottom: 4rem;
+  z-index: 10;
 }
 
 button, .btn {
-  padding: 0.9rem 1.8rem;
-  font-size: 1.1rem;
-  font-weight: 500;
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  font-weight: 600;
   border: none;
-  border-radius: 0.75rem;
+  border-radius: 1rem;
   cursor: pointer;
-  transition: all 0.25s ease;
-  text-decoration: none;
-  display: inline-block;
+  transition: all 0.3s ease;
 }
 
 button {
   background: var(--accent);
-  color: var(--bg);
+  color: white;
 }
 
 button:hover {
-  background: var(--bg);
-  color: var(--accent);
-  transform: translateY(-3px);
-  box-shadow: 0 10px 20px rgba(37, 99, 235, 0.2);
+  transform: translateY(-6px);
+  color: var(--text);
+  background-color: var(--light);
 }
 
 .btn {
   background: var(--light);
   color: var(--text);
-}
-
-.btn:hover {
-  background: #e5e7eb;
-  transform: translateY(-3px);
 }
 
 .social-links {
@@ -108,34 +114,41 @@ button:hover {
 .social-links a:hover {
   color: var(--text);
   background-color: var(--light);
+  transform: translateY(-6px);
+
 }
 
 footer {
-  color: #9ca3af;
+  color: var(--gray);
   font-size: 0.9rem;
 }
 
+/* Mobile fallback — still huge but not broken */
 @media (max-width: 640px) {
-  h1 { font-size: 2.8rem; }
-  p { font-size: 1.1rem; }
+  h1 {
+    font-size: 4.5rem;
+
+  main { padding: 0 1rem; }
+  p { font-size: 1.15rem; }
   .buttons { flex-direction: column; align-items: center; }
-  button, .btn { width: 100%; max-width: 300px; }
+  button, .btn { width: 100%; max-width: 320px; }
 }
 
+/* Smooth fade-in */
 main > * {
   opacity: 0;
-  transform: translateY(20px);
-  animation: fadeInUp 0.8s ease-out forwards;
+  transform: translateY(30px);
+  animation: fadeInUp 1s ease-out forwards;
 }
-
-h1       { animation-delay: 0.15s; }
-p        { animation-delay: 0.30s; }
-.buttons { animation-delay: 0.45s; }
-.social-links { animation-delay: 0.60s; }
+h1       { animation-delay: 0.2s; }
+p        { animation-delay: 0.4s; }
+.buttons { animation-delay: 0.6s; }
 
 @keyframes fadeInUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
 }

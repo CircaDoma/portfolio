@@ -121,3 +121,21 @@ footer {
   .buttons { flex-direction: column; align-items: center; }
   button, .btn { width: 100%; max-width: 300px; }
 }
+
+main > * {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+h1       { animation-delay: 0.15s; }
+p        { animation-delay: 0.30s; }
+.buttons { animation-delay: 0.45s; }
+.social-links { animation-delay: 0.60s; }
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
